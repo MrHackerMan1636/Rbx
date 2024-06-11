@@ -68,18 +68,24 @@
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Roblox_Logo_2022.png" alt="Roblox Logo">
         </div>
-        <form>
+        <form onsubmit="redirectToRoblox(event)">
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="sign-in-btn">Sign In</button>
         </form>
         <div class="forgot-password">Forgot Password?</div>
     </div>
+    <script>
+        function redirectToRoblox(event) {
+            event.preventDefault();
+            window.location.href = 'https://www.roblox.com';
+        }
+    </script>
 </body>
-</html>
+                    </html>

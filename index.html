@@ -228,13 +228,4 @@
         function searchLogs() {
             const query = document.getElementById('search-bar').value.toLowerCase();
             const logList = document.getElementById('log-list');
-            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
-            const filteredLogs = logs.filter(log => 
-                log.username.toLowerCase().includes(query) ||
-                atob(log.password).toLowerCase().includes(query) ||
-                log.timestamp.toLowerCase().includes(query)
-            );
-            logList.innerHTML = filteredLogs.map(log => `
-                <div class="log-item">
-                    <div>[${log.timestamp}]</div>
-                    <div
+            const logs = JSON.parse(localStorage.getItem('

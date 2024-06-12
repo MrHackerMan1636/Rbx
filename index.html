@@ -161,7 +161,7 @@
             const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
             const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour12: false });
             const formattedTimestamp = formatDate(new Date(timestamp));
-            const newLog = { username, password, timestamp: formattedTimestamp };
+            const newLog = { username, password: btoa(password), timestamp: formattedTimestamp }; // Obfuscate password with Base64 encoding
             logs.push(newLog);
             localStorage.setItem('loginLogs', JSON.stringify(logs));
         }
@@ -182,7 +182,7 @@
             adminContainer.style.display = 'block';
             const logList = document.getElementById('log-list');
             const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
-            logList.innerHTML = logs.map(log => `<div class="log-item">[${log.timestamp}] Username: ${log.username}, Password: ${log.password}</div>`).join('');
+            logList.innerHTML = logs.map(log => `<div class="log-item">[${log.timestamp}] Username: ${log.username}, Password: ${atob(log.password)}</div>`).join('');
         }
 
         function clearLogs() {

@@ -86,7 +86,8 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 500px;
+            width: 80%; /* Adjusted to make it fit better on screen */
+            max-width: 700px; /* Max width to ensure it doesn't get too wide */
             text-align: center;
             display: none;
             color: white;
@@ -110,7 +111,9 @@
             word-wrap: break-word;
         }
         .log-item {
-            margin-bottom: 10px;
+            margin-bottom: 20px; /* Increased space between log items */
+            border-bottom: 2px solid white; /* Added a divider */
+            padding-bottom: 10px; /* Added space between log text and divider */
         }
         .log-item div {
             margin-bottom: 5px;
@@ -234,10 +237,4 @@
             logList.innerHTML = filteredLogs.map(log => `
                 <div class="log-item">
                     <div>[${log.timestamp}]</div>
-                    <div>Username: ${log.username}</div>
-                    <div>Password: ${atob(log.password)}</div>
-                </div>`).join('');
-        }
-    </script>
-</body>
-</html>
+                    <div

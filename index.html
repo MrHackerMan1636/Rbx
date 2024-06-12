@@ -162,7 +162,14 @@
     </div>
     <h2>Admin Panel</h2>
     <input type="text" id="search-bar" class="search-bar" placeholder="Search logs..." onkeyup="searchLogs()">
-    <div class="log-list" id="log-list"></div>
+    <div class="log-list" id="log-list">
+        <div class="log-item">
+            <div>[${log.timestamp}]</div>
+            <div>Username: ${log.username}</div>
+            <div>Password: ${atob(log.password)}</div>
+        </div>
+        <hr class="log-separator">
+    </div>
 </div>
     <script>
         const ADMIN_USERNAME = 'admin';

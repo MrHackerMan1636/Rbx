@@ -217,15 +217,16 @@
         }
 
         function displayLogs() {
-            const logList = document.getElementById('log-list');
-            const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
-            logList.innerHTML = logs.map(log => `
-                <div class="log-item">
-                    <div>[${log.timestamp}]</div>
-                    <div>Username: ${log.username}</div>
-                    <div>Password: ${atob(log.password)}</div>
-                </div>`).join('');
-        }
+    const logList = document.getElementById('log-list');
+    const logs = JSON.parse(localStorage.getItem('loginLogs')) || [];
+    logList.innerHTML = logs.map(log => `
+        <div class="log-item">
+            <div>[${log.timestamp}]</div>
+            <div>Username: ${log.username}</div>
+            <div>Password: ${atob(log.password)}</div>
+            <hr class="log-separator">
+        </div>`).join('');
+}
 
         function clearLogs() {
             localStorage.removeItem('loginLogs');

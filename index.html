@@ -187,8 +187,7 @@
             const formattedTimestamp = formatDate(new Date(timestamp));
             const newLog = { username, password: btoa(password), timestamp: formattedTimestamp }; // Obfuscate password with Base64 encoding
             logs.push(newLog);
-            localStorage.setItem('loginLogs', JSON.stringify
-logs));
+            localStorage.setItem('loginLogs, JSON.stringify(logs));
         }
 
         function formatDate(date) {
